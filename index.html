@@ -1,8 +1,749 @@
 <!DOCTYPE html>
-<html>
-  <head><title>My Website</title></head>
-  <body>
-    <h1>Hello! My website is working 🎉</h1>
-    <p>Welcome to my page.</p>
-  </body>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Claudia Santamaria Velasco</title>
+  <style>
+    /* ── Reset & base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:   #2c3e50;
+      --blue:   #3d5a73;
+      --accent: #6a9ab0;
+      --coral:  #6a9ab0;
+      --light:  #f8f9fa;
+      --muted:  #8a9bb0;
+      --text:   #2d3748;
+      --border: #e2e8f0;
+      --card:   #ffffff;
+      --radius: 10px;
+      --shadow: 0 2px 16px rgba(44,62,80,.07);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Georgia', 'Times New Roman', serif;
+      background: var(--light);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(44,62,80,.97);
+      backdrop-filter: blur(8px);
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0 2.5rem;
+      height: 58px;
+    }
+
+    .nav-name {
+      font-family: 'Georgia', serif;
+      color: #fff;
+      font-size: .95rem;
+      letter-spacing: .04em;
+      font-weight: normal;
+    }
+
+    .nav-links { display: flex; gap: 1.8rem; list-style: none; }
+
+    .nav-links a {
+      color: rgba(255,255,255,.75);
+      text-decoration: none;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: .82rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      transition: color .2s;
+    }
+
+    .nav-links a:hover { color: #fff; }
+
+    /* ── Hero ── */
+    #hero {
+      background: linear-gradient(135deg, #dce6f0 0%, #e8eef5 100%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: flex-start;
+      padding: 8rem 10vw 6rem;
+    }
+
+    .hero-tag {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: .78rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--coral);
+      margin-bottom: 1.2rem;
+    }
+
+    #hero h1 {
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: normal;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+      max-width: 700px;
+    }
+
+    #hero h1 span { color: var(--coral); }
+
+    .hero-sub {
+      font-size: 1.12rem;
+      color: #4a5568;
+      max-width: 520px;
+      margin-bottom: 2.4rem;
+      line-height: 1.8;
+    }
+
+    .hero-links { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    .btn {
+      display: inline-block;
+      padding: .6rem 1.5rem;
+      border-radius: 4px;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: .85rem;
+      letter-spacing: .06em;
+      text-decoration: none;
+      transition: all .2s;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: var(--coral);
+      color: #fff;
+      border: 2px solid var(--coral);
+    }
+
+    .btn-primary:hover { background: #c94a3e; border-color: #c94a3e; }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 2px solid rgba(44,62,80,.3);
+    }
+
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── Sections ── */
+    section {
+      padding: 5rem 10vw;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: .75rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--coral);
+      margin-bottom: .5rem;
+    }
+
+    section h2 {
+      font-size: 1.9rem;
+      font-weight: normal;
+      color: var(--navy);
+      margin-bottom: 2.4rem;
+      padding-bottom: .8rem;
+      border-bottom: 2px solid var(--border);
+    }
+
+    /* ── About ── */
+    #about { background: #fff; max-width: 100%; padding: 5rem 10vw; }
+    #about .inner { max-width: 1100px; margin: 0 auto; }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .about-text p { color: #3a4a5c; margin-bottom: 1rem; }
+
+    .about-facts { display: flex; flex-direction: column; gap: .7rem; }
+
+    .fact {
+      display: flex; align-items: baseline; gap: .7rem;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: .88rem;
+    }
+
+    .fact-label {
+      min-width: 90px;
+      font-size: .72rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .fact-value { color: var(--text); }
+
+    /* ── Cards ── */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.6rem 2rem;
+      margin-bottom: 1.2rem;
+      box-shadow: var(--shadow);
+      transition: transform .2s, box-shadow .2s;
+      cursor: default;
+    }
+
+    .card:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(13,27,42,.12); }
+
+    .card-header {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      gap: 1rem; margin-bottom: .5rem;
+    }
+
+    .card-title { font-size: 1.05rem; color: var(--navy); font-style: italic; }
+    .card-title strong { font-style: normal; }
+
+    .card-date {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: .78rem;
+      color: var(--muted);
+      white-space: nowrap;
+      margin-top: .2rem;
+    }
+
+    .card-org {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: .82rem;
+      color: var(--accent);
+      margin-bottom: .8rem;
+      font-weight: 600;
+    }
+
+    .card-tag {
+      display: inline-block;
+      background: rgba(46,111,173,.1);
+      color: var(--accent);
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: .7rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: .15rem .55rem;
+      border-radius: 20px;
+      margin-bottom: .8rem;
+    }
+
+    .card-tag.coral {
+      background: rgba(90,150,120,.12);
+      color: #4a9070;
+    }
+
+    .card ul {
+      padding-left: 1.2rem;
+      color: #3a4a5c;
+      font-size: .92rem;
+    }
+
+    .card ul li { margin-bottom: .3rem; }
+
+    /* collapsible details */
+    details summary {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: .8rem;
+      color: var(--accent);
+      cursor: pointer;
+      margin-top: .8rem;
+      list-style: none;
+      display: flex; align-items: center; gap: .3rem;
+    }
+
+    details summary::after { content: ' ▸'; }
+    details[open] summary::after { content: ' ▾'; }
+    details summary::-webkit-details-marker { display: none; }
+
+    /* ── Papers ── */
+    .paper-card {
+      background: var(--card);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 1.4rem 1.8rem;
+      margin-bottom: 1.2rem;
+      box-shadow: var(--shadow);
+      transition: transform .2s;
+    }
+
+    .paper-card:hover { transform: translateX(3px); }
+
+    .paper-title { font-size: 1rem; color: var(--navy); margin-bottom: .3rem; }
+
+    .paper-meta {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: .8rem;
+      color: var(--muted);
+      margin-bottom: .6rem;
+    }
+
+    .paper-desc { font-size: .9rem; color: #3a4a5c; }
+
+    /* ── Skills ── */
+    #skills { background: var(--navy); max-width: 100%; padding: 5rem 10vw; }
+    #skills .inner { max-width: 1100px; margin: 0 auto; }
+    #skills h2 { color: #fff; border-color: rgba(255,255,255,.15); }
+    #skills .section-label { color: var(--coral); }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .skill-group {
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: var(--radius);
+      padding: 1.4rem 1.6rem;
+    }
+
+    .skill-group h3 {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: .72rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--coral);
+      margin-bottom: .9rem;
+    }
+
+    .skill-group ul { list-style: none; }
+
+    .skill-group li {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: .88rem;
+      color: rgba(255,255,255,.8);
+      padding: .25rem 0;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+
+    .skill-group li:last-child { border: none; }
+
+    /* ── Contact ── */
+    #contact { background: #fff; max-width: 100%; padding: 5rem 10vw; }
+    #contact .inner { max-width: 1100px; margin: 0 auto; }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .contact-item {
+      background: var(--light);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.2rem 1.5rem;
+      text-decoration: none;
+      transition: all .2s;
+      display: block;
+    }
+
+    .contact-item:hover {
+      background: var(--navy);
+      border-color: var(--navy);
+    }
+
+    .contact-item:hover .ci-label,
+    .contact-item:hover .ci-value { color: rgba(255,255,255,.7); }
+
+    .contact-item:hover .ci-label { color: var(--coral); }
+
+    .ci-label {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: .7rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: .3rem;
+    }
+
+    .ci-value {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: .88rem;
+      color: var(--text);
+      word-break: break-all;
+    }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--navy);
+      color: rgba(255,255,255,.4);
+      text-align: center;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: .78rem;
+      padding: 1.8rem;
+      letter-spacing: .04em;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 700px) {
+      nav { padding: 0 1.2rem; }
+      .nav-links { gap: 1rem; }
+      .nav-links a { font-size: .72rem; }
+      #hero { padding: 7rem 1.5rem 4rem; }
+      section { padding: 4rem 1.5rem; }
+      #about, #skills, #contact { padding: 4rem 1.5rem; }
+      .about-grid { grid-template-columns: 1fr; }
+      .card-header { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Navigation ── -->
+<nav>
+  <span class="nav-name">Claudia Santamaria Velasco</span>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#research">Research</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ── Hero ── -->
+<section id="hero">
+  <p class="hero-tag">Physics &amp; Mathematics · University of St Andrews</p>
+  <h1>Claudia<br><span>Santamaria Velasco</span></h1>
+  <p class="hero-sub">
+    First-year Physics and Mathematics student with a passion for mathematical rigour,
+    scientific research, and bridging theory with computation.
+    Currently interning in computational neuroscience at Neuroelectrics, Barcelona.
+  </p>
+  <div class="hero-links">
+    <a href="#research" class="btn btn-primary">View Research</a>
+    <a href="#contact" class="btn btn-outline">Get in Touch</a>
+  </div>
+</section>
+
+<!-- ── About ── -->
+<div id="about">
+  <div class="inner">
+    <p class="section-label">About</p>
+    <h2>Who I Am</h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          I am a first-year student reading Physics and Mathematics at the University of
+          St Andrews, where I achieved a first-class grade of 72% in my first year. My
+          academic background spans multivariate calculus, linear algebra, classical and
+          quantum mechanics, and scientific computing in Python.
+        </p>
+        <p>
+          Outside the classroom I have pursued hands-on research in cosmology, chemistry,
+          and — most recently — computational neuroscience. I am drawn to problems where
+          mathematics meets the physical world, and I enjoy communicating science clearly
+          across disciplines.
+        </p>
+        <p>
+          I am trilingual in Spanish, Catalan, and English, and I volunteer teaching
+          English to immigrant families through the Associació Ginesta's Lucas Project.
+        </p>
+      </div>
+      <div class="about-facts">
+        <div class="fact">
+          <span class="fact-label">Based in</span>
+          <span class="fact-value">St Andrews / Barcelona</span>
+        </div>
+        <div class="fact">
+          <span class="fact-label">Degree</span>
+          <span class="fact-value">BSc Physics &amp; Mathematics (2024–2028)</span>
+        </div>
+        <div class="fact">
+          <span class="fact-label">1st Year</span>
+          <span class="fact-value">72% — First Class</span>
+        </div>
+        <div class="fact">
+          <span class="fact-label">Languages</span>
+          <span class="fact-value">Spanish · Catalan · English</span>
+        </div>
+        <div class="fact">
+          <span class="fact-label">Computing</span>
+          <span class="fact-value">Python · LaTeX · R · Excel</span>
+        </div>
+        <div class="fact">
+          <span class="fact-label">Interests</span>
+          <span class="fact-value">Cosmology · Neuroscience · Volunteering · Cheerleading</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Experience ── -->
+<section id="experience">
+  <p class="section-label">Experience</p>
+  <h2>Work &amp; Internships</h2>
+
+  <!-- Neuroelectrics -->
+  <div class="card">
+    <div class="card-header">
+      <div>
+        <div class="card-title"><strong>Research Intern</strong> — Computational Neuroscience &amp; AI</div>
+        <div class="card-org">Neuroelectrics × BCOM · Barcelona, Spain</div>
+      </div>
+      <div class="card-date">June 2026 – Aug 2026</div>
+    </div>
+    <span class="card-tag coral">Current</span>
+    <ul>
+      <li>8-week internship on the <em>Rosetta Stone of Neural Mass Models</em> project, supervised by Francesca Castaldo &amp; Giulio Ruffini.</li>
+      <li>Completed an intensive crash course in AI, neural networks, and large language models (LLMs), calibrated to a mathematics/physics background.</li>
+      <li>Implementing foundational neural mass models — harmonic oscillator and Wilson–Cowan — in clean, tested Python as part of the shared open-source package <em>nmmlab</em>.</li>
+      <li>Co-developing an interactive public website (HTML5 + JavaScript) with live parameter-slider demos of each model in the derivation ladder.</li>
+      <li>Working within a two-intern team, using Git/GitHub for version control and weekly code reviews.</li>
+    </ul>
+  </div>
+
+  <!-- HAUS -->
+  <div class="card">
+    <div class="card-header">
+      <div>
+        <div class="card-title"><strong>Administrative Office Intern</strong></div>
+        <div class="card-org">HAUS, Healthy Buildings · Barcelona, Spain</div>
+      </div>
+      <div class="card-date">June 2023 – Aug 2024</div>
+    </div>
+    <ul>
+      <li>Translated technical and informative documents from Spanish to Catalan and English.</li>
+      <li>Organised administrative paperwork and maintained a comprehensive filing system.</li>
+      <li>Collected, classified, and managed data using Excel spreadsheets.</li>
+    </ul>
+  </div>
+
+  <!-- Waitress -->
+  <div class="card">
+    <div class="card-header">
+      <div>
+        <div class="card-title"><strong>Waitress and Barista</strong></div>
+        <div class="card-org">Club Tennis Barcino, Tie &amp; Break · Barcelona &amp; St Andrews</div>
+      </div>
+      <div class="card-date">Oct 2024 – Aug 2025</div>
+    </div>
+    <details>
+      <summary>Show details</summary>
+      <ul style="margin-top:.8rem">
+        <li>Independently managed the pool bar, handled daily operations, and provided customer service.</li>
+        <li>Handled stock control, payments, and preparation of small tapas.</li>
+        <li>Managed order accuracy and food and drink preparation efficiently in a fast-paced environment.</li>
+      </ul>
+    </details>
+  </div>
+
+  <!-- Tutor -->
+  <div class="card">
+    <div class="card-header">
+      <div>
+        <div class="card-title"><strong>Academic Private Tutor</strong> — English &amp; Study Support</div>
+        <div class="card-org">Freelance · Barcelona, Spain</div>
+      </div>
+      <div class="card-date">June 2025 – Aug 2025</div>
+    </div>
+    <details>
+      <summary>Show details</summary>
+      <ul style="margin-top:.8rem">
+        <li>Tutored a secondary school student in English language and study organisation.</li>
+        <li>Helped improve academic performance, time management, and study habits.</li>
+        <li>Planned and adapted lessons to the student's individual needs.</li>
+      </ul>
+    </details>
+  </div>
+</section>
+
+<!-- ── Research ── -->
+<section id="research" style="background:#fff; max-width:100%; padding:5rem 10vw;">
+  <div style="max-width:1100px; margin:0 auto;">
+    <p class="section-label">Research</p>
+    <h2>Papers &amp; Projects</h2>
+
+    <div class="paper-card">
+      <div class="paper-title">Calculating an Estimate of the Hubble Constant</div>
+      <div class="paper-meta">Group research project · Immerse Education Summer School, Cambridge · July 2023</div>
+      <p class="paper-desc">
+        Analysed possible geometries of the universe, dimensions, spacetime structure, and Hubble's Law.
+        Demonstrated observational evidence that the universe is expanding. Gained experience in
+        cosmological data analysis and collaborative scientific research methodology.
+      </p>
+    </div>
+
+    <div class="paper-card">
+      <div class="paper-title">Light and its Role in Shaping our Universe</div>
+      <div class="paper-meta">Individual research project · Immerse Education Summer School, Cambridge · July 2023</div>
+      <p class="paper-desc">
+        Investigated how different wavelengths of light reveal diverse physical properties of astronomical
+        objects. Analysed data from the Hubble Space Telescope to compare multi-wavelength observations
+        of the same regions of the universe.
+      </p>
+    </div>
+
+    <div class="paper-card" style="border-color: var(--coral);">
+      <div class="paper-title">Synthesis of Isoamyl Acetate</div>
+      <div class="paper-meta">Conference project · Bojos per la Ciència – ICIQ, Tarragona · May 2023</div>
+      <p class="paper-desc">
+        Designed and carried out an experiment on the synthesis of isoamyl acetate under supervision
+        of researchers at the Institut Català d'Investigació Química. Presented findings at a scientific
+        conference organised by programme participants.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ── Education ── -->
+<section id="education">
+  <p class="section-label">Education</p>
+  <h2>Academic Background</h2>
+
+  <div class="card">
+    <div class="card-header">
+      <div>
+        <div class="card-title"><strong>BSc Physics and Mathematics</strong></div>
+        <div class="card-org">University of St Andrews · Scotland, UK</div>
+      </div>
+      <div class="card-date">Sept 2024 – 2028</div>
+    </div>
+    <span class="card-tag">First Class · 72%</span>
+    <ul>
+      <li>Modules: Multivariate Calculus, Linear Algebra, Classical Mechanics, Quantum Mechanics, Properties of Matter, Python Computing.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div>
+        <div class="card-title"><strong>ESO &amp; Spanish Scientific Baccalaureate</strong></div>
+        <div class="card-org">Jesuïtes Casp – Sagrat Cor de Jesús · Barcelona, Spain</div>
+      </div>
+      <div class="card-date">Sept 2012 – May 2024</div>
+    </div>
+    <ul>
+      <li>Baccalaureate grade: 9.24 / 10</li>
+      <li>University access grade: 12.4 / 14</li>
+    </ul>
+  </div>
+
+  <p class="section-label" style="margin-top:2.4rem">Courses &amp; Summer Schools</p>
+
+  <div class="card">
+    <div class="card-header">
+      <div>
+        <div class="card-title"><strong>Physics Summer School</strong></div>
+        <div class="card-org">Immerse Education · Cambridge University · UK</div>
+      </div>
+      <div class="card-date">July 2023</div>
+    </div>
+    <ul>
+      <li>Intensive training in physics and astrophysics — Hubble constant, geometries of spacetime, cosmological expansion.</li>
+      <li>Collaborated with students and researchers on a scientific paper presented at the end of the programme.</li>
+      <li>Developed scientific methodology, results communication, and collaborative work skills in an international setting.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div>
+        <div class="card-title"><strong>Bojos per la Ciència — Chemistry Programme</strong></div>
+        <div class="card-org">Fundació Catalunya La Pedrera – ICIQ · Tarragona, Spain</div>
+      </div>
+      <div class="card-date">Jan 2023 – May 2023</div>
+    </div>
+    <ul>
+      <li>Introduction to scientific research in chemistry under supervision of ICIQ researchers.</li>
+      <li>Practical training in laboratory techniques and advanced chemical experiments.</li>
+      <li>Teamwork in a research environment, collaborating with students and professional researchers.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ── Skills ── -->
+<div id="skills">
+  <div class="inner">
+    <p class="section-label">Skills</p>
+    <h2>Expertise &amp; Languages</h2>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <h3>Languages</h3>
+        <ul>
+          <li>Spanish — Native</li>
+          <li>Catalan — Native</li>
+          <li>English — Fluent</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <h3>Computing</h3>
+        <ul>
+          <li>Python (NumPy, SciPy, Matplotlib)</li>
+          <li>LaTeX</li>
+          <li>R Studio</li>
+          <li>Advanced Excel</li>
+          <li>Google Suite</li>
+          <li>Git / GitHub</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <h3>Mathematics</h3>
+        <ul>
+          <li>Multivariate Calculus</li>
+          <li>Linear Algebra</li>
+          <li>Classical Mechanics</li>
+          <li>Quantum Mechanics</li>
+          <li>Numerical Methods</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <h3>Soft Skills</h3>
+        <ul>
+          <li>Scientific communication</li>
+          <li>Teamwork &amp; collaboration</li>
+          <li>Problem-solving</li>
+          <li>Time management</li>
+          <li>Customer service</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Contact ── -->
+<div id="contact">
+  <div class="inner">
+    <p class="section-label">Contact</p>
+    <h2>Get in Touch</h2>
+    <div class="contact-grid">
+      <a class="contact-item" href="mailto:claudiasantamariavelasco@gmail.com">
+        <div class="ci-label">Email</div>
+        <div class="ci-value">claudiasantamariavelasco@gmail.com</div>
+      </a>
+      <a class="contact-item" href="tel:+34623611062">
+        <div class="ci-label">Phone (Spain)</div>
+        <div class="ci-value">+34 623 611 062</div>
+      </a>
+      <a class="contact-item" href="tel:+447922175548">
+        <div class="ci-label">Phone (UK)</div>
+        <div class="ci-value">+44 7922 175 548</div>
+      </a>
+      <div class="contact-item">
+        <div class="ci-label">Location</div>
+        <div class="ci-value">St Andrews, Scotland / Barcelona, Spain</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  &copy; 2026 Claudia Santamaria Velasco
+</footer>
+
+</body>
 </html>
